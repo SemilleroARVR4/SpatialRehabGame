@@ -22,7 +22,7 @@ public class Lista : MonoBehaviour
         objetos.AddRange(interactableObjects.GetComponentsInChildren<Pickable2>());
 
         GameObject firstItem = Instantiate(listItem,panelList.position,Quaternion.identity,panelList);
-        actualObject =objetos[actualIndex];
+        actualObject = objetos[actualIndex];
         firstItem.GetComponent<TextMeshProUGUI>().text = "-" + actualObject.DisplayName;
     }
 
@@ -30,12 +30,12 @@ public class Lista : MonoBehaviour
     {
         panelList.GetComponentsInChildren<TextMeshProUGUI>()[actualIndex].fontStyle = FontStyles.Strikethrough;
 
-        if(actualIndex+2 <= objetos.Count)
+        if(actualIndex+1 < objetos.Count)
         {
-            Debug.Log(actualIndex);
             actualIndex++;
             GameObject item = Instantiate(listItem,panelList.position,panelList.rotation,panelList);
             actualObject =objetos[actualIndex];
+            FindObjectOfType<PathFinder>().point = actualObject.transform;
             item.GetComponent<TextMeshProUGUI>().text = "-" + actualObject.DisplayName;
             FindObjectOfType<Controller>().Register(actualIndex);
         }

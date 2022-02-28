@@ -73,6 +73,7 @@ public class Signin : MonoBehaviour
         msg += "created at: " + record?.createdTime;
         Debug.Log("[Airtable Unity] - Create Record: " + "\n" + msg);
         userText.text = "Bienvenido " + email.text;
+        Controller.username = email.text;
         signinPanel.SetActive(false);
         loguedPanel.SetActive(true);
     }

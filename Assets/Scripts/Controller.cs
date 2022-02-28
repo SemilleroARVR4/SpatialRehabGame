@@ -6,37 +6,85 @@ public class Controller : MonoBehaviour
 {
     Timer timer;
     public float helpLevel = 0;
-    bool timerHelpTrigger;
+    bool timerHelpTrigger1, timerHelpTrigger2;
 
-    public GameObject txtFinalizado;
+    public GameObject txtUI;
 
-    public List<string> registerList = new List<string>();
+    public List<string> tempEnteredZones = new List<string>();
+
+    public List<Task> tasks = new List<Task>();
+
+    public static string username = "TestUser";
 
     private void Start() {
         Timer.Initialize();
     }
     
     private void Update() {
-        if(!timerHelpTrigger && Timer.GetTimeBetweenObjects() > 60)
+
+        if(!timerHelpTrigger1 && Timer.GetTimeBetweenObjects() > 30)
         {
-            timerHelpTrigger = true;
+            timerHelpTrigger1 = true;
             helpLevel += 1;
+            FindObjectOfType<PathFinder>().InvokeRepeating("CreateSignal",0,10);
+            txtUI.GetComponent<TMPro.TextMeshPro>().text = "<b>Ayuda:</b>\nLas señales te guian al objeto";
+            txtUI.SetActive(true);
+            Invoke(nameof(HideTextUI),6);
         }
-        if(Input.GetKeyDown("b"))
+
+        if(!timerHelpTrigger2 && Timer.GetTimeBetweenObjects() > 60)
         {
-            Debug.Log(Timer.lastTime);
-            Debug.Log(Timer.GetTimeBetweenObjects());
-            Debug.Log(Time.realtimeSinceStartup);
+            timerHelpTrigger2 = true;
+            helpLevel += 1;
+            FindObjectOfType<PathFinder>().CancelInvoke("CreateSignal");
+            FindObjectOfType<PathFinder>().GetComponentInChildren<LineRenderer>().enabled = true;
+            txtUI.GetComponent<TMPro.TextMeshPro>().text = "<b>Ayuda:</b>\nLa linea del suelo te guia al objeto, síguela";
+            txtUI.SetActive(true);
+            Invoke(nameof(HideTextUI),10);
         }
     }
 
     public void Register(int objectIndex)
     {
-        registerList.Add("Objeto " + objectIndex + " tiempo: " + Timer.OnPickedObject().ToString("F1"));
+        tasks.Add(new Task(tempEnteredZones,Timer.OnPickedObject()));
+        tempEnteredZones = new List<string>();
+    }
+
+    public void ZoneRegister(string name)
+    {
+        if(tempEnteredZones.Count == 0 || !tempEnteredZones.Contains(name))
+            tempEnteredZones.Add(name);
+    }
+
+    void HideTextUI()
+    {
+        txtUI.SetActive(false);
     }
 
     public void OnFinished()
     {
-        txtFinalizado.SetActive(true);
+        txtUI.GetComponent<TMPro.TextMeshPro>().text = "¡Tareas Completadas!";
+        txtUI.SetActive(true);
+        float avgTime = 0;
+        int totalPlaces = 0;
+        foreach(Task t in tasks)
+        {
+            avgTime += t.time;
+            totalPlaces += t.enteredZones.Count;
+        }
+        avgTime= avgTime/tasks.Count;
+        FindObjectOfType<Register>().CreateAirtableRecord(username, avgTime, totalPlaces);
+    }
+}
+
+public class Task
+{
+    public List<string> enteredZones;
+    public float time;
+
+    public Task(List<string> zones, float timeIn)
+    {
+        enteredZones = zones;
+        time = timeIn;
     }
 }

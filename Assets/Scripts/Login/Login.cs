@@ -34,6 +34,7 @@ public class Login : MonoBehaviour
             {
                 userText.text = "Bienvenido " + usuario.Email;
                 userText.transform.parent.gameObject.SetActive(true);
+                Controller.username = usuario.Email;
                 return;
             }
         }
