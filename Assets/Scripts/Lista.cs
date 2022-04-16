@@ -6,14 +6,19 @@ using TMPro;
 public class Lista : MonoBehaviour
 {
     public Transform interactableObjects, panelList;
-    public GameObject listItem;
+    public GameObject listItem, lastListItem;
     Animator anim;
     GameObject listObject;
     AudioSource audioSource;
     // Update is called once per frame
     public List<Pickable2> objetos = new List<Pickable2>();
     public Pickable2 actualObject;
-    int actualIndex = 0;
+    int actualIndex = 0, pickedObjects = 0;
+    public int numObjectsToFind;
+
+    bool hasAnObject;
+
+
     private void Start(){
         anim = gameObject.GetComponentInChildren<Animator>();
         listObject = transform.GetChild(0).gameObject;
@@ -21,29 +26,47 @@ public class Lista : MonoBehaviour
 
         objetos.AddRange(interactableObjects.GetComponentsInChildren<Pickable2>());
 
-        GameObject firstItem = Instantiate(listItem,panelList.position,Quaternion.identity,panelList);
-        actualObject = objetos[actualIndex];
-        firstItem.GetComponent<TextMeshProUGUI>().text = "-" + actualObject.DisplayName;
+        lastListItem = Instantiate(listItem,panelList.position,Quaternion.identity,panelList);
+        lastListItem.GetComponent<TextMeshProUGUI>().text = "";
+        SelectRandomObject();
     }
 
     public void OnPickedObject()
     {
-        panelList.GetComponentsInChildren<TextMeshProUGUI>()[actualIndex].fontStyle = FontStyles.Strikethrough;
+        foreach(var listItem in panelList.GetComponentsInChildren<TextMeshProUGUI>())
+            listItem.fontStyle = FontStyles.Strikethrough;
 
-        if(actualIndex+1 < objetos.Count)
+        lastListItem = Instantiate(listItem,panelList.position,Quaternion.identity,panelList);
+        lastListItem.transform.localRotation = Quaternion.identity;
+        lastListItem.GetComponent<TextMeshProUGUI>().text = "-Regresa a la puerta";
+        hasAnObject = true;
+        pickedObjects++;
+    }
+
+    public void ReturnedToStart()
+    {
+        if(pickedObjects < numObjectsToFind)
         {
-            actualIndex++;
-            GameObject item = Instantiate(listItem,panelList.position,panelList.rotation,panelList);
-            actualObject =objetos[actualIndex];
-            FindObjectOfType<PathFinder>().point = actualObject.transform;
-            item.GetComponent<TextMeshProUGUI>().text = "-" + actualObject.DisplayName;
-            FindObjectOfType<Controller>().Register(actualIndex);
+            if(hasAnObject)
+            {
+                SelectRandomObject();
+                FindObjectOfType<Controller>().Register(actualIndex);
+            }
         }
         else
         {
             FindObjectOfType<Controller>().OnFinished();
-            FindObjectOfType<Controller>().Register(actualIndex+1);
         }
+        hasAnObject = false;
+    }
+
+    void SelectRandomObject()
+    {
+        actualIndex = Random.Range(0,objetos.Count);
+        actualObject = objetos[actualIndex];
+        objetos.Remove(actualObject);
+        FindObjectOfType<PathFinder>().point = actualObject.transform;
+        lastListItem.GetComponent<TextMeshProUGUI>().text = "-" + actualObject.DisplayName;
     }
 
     void Update()

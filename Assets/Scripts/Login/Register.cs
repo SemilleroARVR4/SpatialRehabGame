@@ -37,8 +37,11 @@ public class Register : MonoBehaviour
 
     private void OnResponseCreateFinish<T>(BaseRecord<T> record)
     {
+        Controller.registerID = record?.id;
         var msg = "record id: " + record?.id + "\n";
         msg += "created at: " + record?.createdTime;
         Debug.Log("[Airtable Unity] - Create Record: " + "\n" + msg);
+        FindObjectOfType<CardboardCtrler>().Invoke("StopXR",1);
+        FindObjectOfType<Controller>().Invoke("LoadForm",2);
     }
 }
