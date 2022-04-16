@@ -16,13 +16,15 @@ public class Controller : MonoBehaviour
 
     public static string username = "TestUser";
 
+    public static string registerID = "";
+
     private void Start() {
         Timer.Initialize();
     }
     
     private void Update() {
 
-        if(!timerHelpTrigger1 && Timer.GetTimeBetweenObjects() > 30)
+        if(!timerHelpTrigger1 && Timer.GetTimeBetweenObjects() > 45)
         {
             timerHelpTrigger1 = true;
             helpLevel += 1;
@@ -48,6 +50,10 @@ public class Controller : MonoBehaviour
     {
         tasks.Add(new Task(tempEnteredZones,Timer.OnPickedObject()));
         tempEnteredZones = new List<string>();
+        timerHelpTrigger1 = false;
+        timerHelpTrigger2 = false;
+        FindObjectOfType<PathFinder>().CancelInvoke();
+        FindObjectOfType<PathFinder>().GetComponentInChildren<LineRenderer>().enabled = false;
     }
 
     public void ZoneRegister(string name)
@@ -74,6 +80,11 @@ public class Controller : MonoBehaviour
         }
         avgTime= avgTime/tasks.Count;
         FindObjectOfType<Register>().CreateAirtableRecord(username, avgTime, totalPlaces);
+    }
+
+    public void LoadForm()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Preguntas");
     }
 }
 

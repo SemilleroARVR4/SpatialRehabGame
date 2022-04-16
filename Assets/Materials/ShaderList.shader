@@ -7,7 +7,7 @@ Shader "Unlit/ShaderList"
     SubShader
     {
         Tags {
-        "Queue" = "Transparent+110"
+        "Queue" = "Transparent+100"
         "RenderType" = "Opaque"
         "DisableBatching" = "True"
         }

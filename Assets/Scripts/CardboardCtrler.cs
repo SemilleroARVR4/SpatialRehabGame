@@ -36,7 +36,7 @@ public class CardboardCtrler : MonoBehaviour
         }
     }
 
-    private void StopXR()
+    public void StopXR()
     {
         Debug.Log("Stopping XR...");
         XRGeneralSettings.Instance.Manager.StopSubsystems();
@@ -45,5 +45,6 @@ public class CardboardCtrler : MonoBehaviour
         Debug.Log("Deinitializing XR...");
         XRGeneralSettings.Instance.Manager.DeinitializeLoader();
         Debug.Log("XR deinitialized.");
+        Screen.orientation = ScreenOrientation.Portrait;
     }
 }
