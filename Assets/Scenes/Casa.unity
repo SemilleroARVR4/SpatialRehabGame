@@ -2026,6 +2026,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Almohada Blanca
+  question: 
+  options:
+  - 
+  - 
+  - 
+  - 
+  correctIndex: 0
 --- !u!135 &422745162
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7563,6 +7570,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Papel Higienico
+  question: 
+  options:
+  - 
+  - 
+  - 
+  - 
+  correctIndex: 0
 --- !u!135 &682966788
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9299,6 +9313,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Papel Higienico
+  question: "\xBFEn cual ba\xF1o se encontraba el papel higienico?"
+  options:
+  - "Ba\xF1o del segundo piso"
+  - "Ba\xF1o del primer piso"
+  - "Ba\xF1o privado"
+  - "Ba\xF1o del tercer piso"
+  correctIndex: 1
 --- !u!114 &996273117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11157,6 +11178,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Bolso de cuero
+  question: "\xBFsobre que superficie estaba el bolso?"
+  options:
+  - Cama
+  - Escritorio
+  - "Mez\xF3n"
+  - Comedor
+  correctIndex: 0
 --- !u!1001 &1336976741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11978,7 +12006,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78d8f774ed4e604bb76f024d008af20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DisplayName: Llaves
+  DisplayName: Llave
+  question: Sobre que superficie estaba la llave?
+  options:
+  - El comedor
+  - Mesa de la sala
+  - Escritorio
+  - Cama
+  correctIndex: 2
 --- !u!114 &1413139343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12253,6 +12288,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Manzana
+  question: "\xBFEn que habitaci\xF3n se encontraba la manzana?"
+  options:
+  - En la sala
+  - En el estudio
+  - "En la habitaci\xF3n principal"
+  - En la cocina
+  correctIndex: 3
 --- !u!114 &1440320837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13538,6 +13580,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Sarten
+  question: "\xBFsobre que superficie estaba el sarten?"
+  options:
+  - Nevera
+  - Cama
+  - Estufa
+  - "Mez\xF3n de la cocina"
+  correctIndex: 2
 --- !u!4 &1756293047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dac8cc58e0bce1c48b94711a1aa99bbf, type: 3}
@@ -13757,6 +13806,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayName: Valde
+  question: "\xBFEn que habitaci\xF3n se encontraba el valde?"
+  options:
+  - En el patio
+  - En la cocina
+  - "En el ba\xF1o"
+  - En el estudio
+  correctIndex: 0
 --- !u!1001 &1898565742
 PrefabInstance:
   m_ObjectHideFlags: 0

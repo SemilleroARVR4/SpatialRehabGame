@@ -12,6 +12,7 @@ public class Lista : MonoBehaviour
     AudioSource audioSource;
     // Update is called once per frame
     public List<Pickable2> objetos = new List<Pickable2>();
+    public static List<Pickable2> usedObjects = new List<Pickable2>();
     public Pickable2 actualObject;
     int actualIndex = 0, pickedObjects = 0;
     public int numObjectsToFind;
