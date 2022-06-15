@@ -4,21 +4,19 @@ using AirtableUnity.PX.Model;
 using UnityEngine;
 using TMPro;
 using System;
-using System.Globalization;
 
-public class Register : MonoBehaviour
+public class AnswersRegister : MonoBehaviour
 {
     string NewRecordJson;
-    public void CreateAirtableRecord(string user, double avgTime, int places)
+    public void CreateAirtableRecord(string user, int correctAnswers)
     {
         NewRecordJson = @"{
                         ""fields"": {
-                        ""Username"": """  +        user       + @""""
-                        + @",""AvgTime"": "  +      (int)avgTime+"."+ (int)((avgTime/1)*10)   + @""
-                        + @",""TotalPlaces"": " +   places    + @""
+                        ""User"": """  +        user       + @""""
+                        + @",""CorrectAnswers"": " +   correctAnswers    + @""
                         + "}}";
         Debug.Log(NewRecordJson);
-        CreateAirtableRecord<BaseField>("Data", NewRecordJson, null);
+        CreateAirtableRecord<BaseField>("Preguntas", NewRecordJson, null);
     }
     //(int)avgTime+"."+ (int)((avgTime/1)*10) 
     

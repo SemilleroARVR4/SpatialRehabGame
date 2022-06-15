@@ -82,7 +82,7 @@ public class Controller : MonoBehaviour
         FindObjectOfType<Register>().CreateAirtableRecord(username, avgTime, totalPlaces);
     }
 
-    public void LoadForm()
+    public static void LoadForm()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Preguntas");
     }

@@ -14,8 +14,11 @@ public class QuestionController : MonoBehaviour
     int actualIndex = 0, correctAnswers;
     private void Start()
     {
+        //Lista.usedObjects.AddRange(FindObjectsOfType<Pickable2>());
+        Debug.Log(Lista.usedObjects.Count);
         foreach (Pickable2 pickable in Lista.usedObjects)
         {
+            Debug.Log(pickable.DisplayName);
             Question addedQuestion = new Question(pickable.question, pickable.options, pickable.correctIndex);
             questions.Add(addedQuestion);
         }
@@ -33,11 +36,11 @@ public class QuestionController : MonoBehaviour
             Debug.Log("INCorrecto");
         
         actualIndex++;
-        if(actualIndex<questions.Count)
+        if(actualIndex < questions.Count)
             ShowNewQuestion();
         else
         {
-            FindObjectOfType<Form>().UpdateAirtableRecord(correctAnswers);
+            FindObjectOfType<AnswersRegister>().CreateAirtableRecord(Controller.username, correctAnswers);
             questionsPanel.SetActive(false);
             endPanel.SetActive(true);
             totalTime = initTime-Time.realtimeSinceStartup;

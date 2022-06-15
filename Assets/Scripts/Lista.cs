@@ -16,7 +16,6 @@ public class Lista : MonoBehaviour
     public Pickable2 actualObject;
     int actualIndex = 0, pickedObjects = 0;
     public int numObjectsToFind;
-
     bool hasAnObject;
 
 
@@ -42,6 +41,7 @@ public class Lista : MonoBehaviour
         lastListItem.GetComponent<TextMeshProUGUI>().text = "-Regresa a la puerta";
         hasAnObject = true;
         pickedObjects++;
+        usedObjects.Add(actualObject);
     }
 
     public void ReturnedToStart()
