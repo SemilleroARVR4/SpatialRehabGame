@@ -36,7 +36,7 @@ public class CardboardCtrler : MonoBehaviour
         }
     }
 
-    public void StopXR()
+    public static void StopXR()
     {
         Debug.Log("Stopping XR...");
         XRGeneralSettings.Instance.Manager.StopSubsystems();

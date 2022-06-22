@@ -85,6 +85,7 @@ public class Controller : MonoBehaviour
 
     public static void LoadForm()
     {
+        CardboardCtrler.StopXR();
         UnityEngine.SceneManagement.SceneManager.LoadScene("Preguntas");
     }
 }
