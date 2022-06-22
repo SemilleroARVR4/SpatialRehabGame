@@ -80,6 +80,7 @@ public class Controller : MonoBehaviour
         }
         avgTime= avgTime/tasks.Count;
         FindObjectOfType<Register>().CreateAirtableRecord(username, avgTime, totalPlaces);
+        Invoke(nameof(LoadForm),2);
     }
 
     public static void LoadForm()
